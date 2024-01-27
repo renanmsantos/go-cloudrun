@@ -9,6 +9,7 @@ import (
 
 func GetTemperature() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
 		input := r.URL.Query().Get("cep")
 		output, err := usecases.Execute(input)
 		if err != nil && err.Error() == "INVALID_CEP" {
