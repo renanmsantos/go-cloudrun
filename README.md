@@ -1,3 +1,9 @@
+# Como rodar o projeto
+
+## Para rodar local
+
+## Para rodar em prod
+
 # Sobre o Lab: CloudRun
 
 ## Objetivo

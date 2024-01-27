@@ -6,27 +6,26 @@ import (
 	"regexp"
 
 	"github.com/renanmoreirasan/go-cloudrun/internal/gateways"
-	"github.com/renanmoreirasan/go-cloudrun/internal/usecases/dtos"
 )
 
-func Execute(cep string) (dtos.TemperaturesOutput, error) {
+func Execute(cep string) (TemperaturesOutputDTO, error) {
 	//CEP validation
 	if !isValidCep(cep) {
-		return dtos.TemperaturesOutput{}, errors.New("INVALID_CEP")
+		return TemperaturesOutputDTO{}, errors.New("INVALID_CEP")
 	}
 	//Call API to get location
 	location, err := gateways.GetLocation(cep)
 	if err != nil {
-		return dtos.TemperaturesOutput{}, err
+		return TemperaturesOutputDTO{}, err
 	}
 	//Call API to get temperature
 	temperatures, err := gateways.GetLocationTemperature(location)
 	if err != nil {
-		return dtos.TemperaturesOutput{}, err
+		return TemperaturesOutputDTO{}, err
 	}
 
 	//Print temperature
-	return dtos.NewTemperatures(
+	return NewTemperaturesOutputDTO(
 		temperatures.Current.Celsius,
 		temperatures.Current.Fahrenheit,
 		convertCelsiusToKelvin(temperatures.Current.Celsius),

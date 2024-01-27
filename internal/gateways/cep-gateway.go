@@ -2,6 +2,7 @@ package gateways
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 )
@@ -20,6 +21,9 @@ func GetLocation(cep string) (Location, error) {
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return Location{}, err
+	}
+	if res.StatusCode == http.StatusNotFound {
+		return Location{}, errors.New("CEP_NOT_FOUND")
 	}
 	defer res.Body.Close()
 
