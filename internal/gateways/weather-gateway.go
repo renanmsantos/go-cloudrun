@@ -9,10 +9,12 @@ import (
 )
 
 type Temperatures struct {
-	Current struct {
-		Celsius    float64 `json:"temp_c"`
-		Fahrenheit float64 `json:"temp_f"`
-	} `json:"current"`
+	Current Current `json:"current"`
+}
+
+type Current struct {
+	Celsius    float64 `json:"temp_c"`
+	Fahrenheit float64 `json:"temp_f"`
 }
 
 const apiKey = "369d49d6a467440489b202319242601"

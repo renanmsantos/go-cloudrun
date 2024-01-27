@@ -2,7 +2,6 @@ package usecases
 
 import (
 	"errors"
-	"log"
 	"regexp"
 
 	"github.com/renanmoreirasan/go-cloudrun/internal/gateways"
@@ -34,11 +33,7 @@ func Execute(cep string) (TemperaturesOutputDTO, error) {
 
 func isValidCep(cep string) bool {
 	containsEightDigitsRegex := `^[0-9]{8}$`
-	match, err := regexp.MatchString(containsEightDigitsRegex, cep)
-	if err != nil {
-		log.Printf("Error while validating CEP: %v", err)
-		return false
-	}
+	match, _ := regexp.MatchString(containsEightDigitsRegex, cep)
 	return match
 }
 
