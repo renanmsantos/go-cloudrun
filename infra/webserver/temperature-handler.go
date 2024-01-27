@@ -14,16 +14,17 @@ func GetTemperature() func(w http.ResponseWriter, r *http.Request) {
 		output, err := usecases.Execute(input)
 		if err != nil && err.Error() == "INVALID_CEP" {
 			http.Error(w, err.Error(), http.StatusUnprocessableEntity)
-			w.Write([]byte("Invalid zipcode"))
+			json.NewEncoder(w).Encode("Invalid zipcode")
 			return
 		}
 		if err != nil && err.Error() == "CEP_NOT_FOUND" {
 			http.Error(w, err.Error(), http.StatusNotFound)
-			w.Write([]byte("Can not found zipcode"))
+			json.NewEncoder(w).Encode("Can not found zipcode")
 			return
 		}
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(err.Error())
 			return
 		}
 		err = json.NewEncoder(w).Encode(output)
