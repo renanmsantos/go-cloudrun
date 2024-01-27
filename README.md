@@ -2,7 +2,20 @@
 
 ## Para rodar local
 
+- Executar o seguinte comando:
+
+`go run cmd/main.go`
+
+- Para testar, realizar a seguinte chamada:
+
+`curl --location 'http://localhost:8080?cep=12322640'`
+
 ## Para rodar em prod
+
+- Realizar a seguinte chamada:
+
+`curl --location 'https://go-googlerun-ffiabwh56a-uc.a.run.app?cep=12322640'`
+
 
 # Sobre o Lab: CloudRun
 

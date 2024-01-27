@@ -1,6 +1,7 @@
 package gateways
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"io"
@@ -13,7 +14,10 @@ type Location struct {
 }
 
 func GetLocation(cep string) (Location, error) {
-	req, err := http.NewRequest("GET", "https://cep.awesomeapi.com.br/json/"+cep, nil)
+
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+
+	req, err := http.NewRequest("GET", "http://cep.awesomeapi.com.br/json/"+cep, nil)
 	if err != nil {
 		return Location{}, err
 	}
@@ -38,5 +42,4 @@ func GetLocation(cep string) (Location, error) {
 		return Location{}, err
 	}
 	return coordinates, nil
-
 }
